@@ -1,43 +1,52 @@
 console.log('lt-less tumblr loaded!')
+
 function filterText() {
     reblogs = document.querySelectorAll('.reblog-content')
-    function hide(el) {
-        el.style.display = 'none'
-    }
+
     function hasKeyWord(text) {
-        if (text.search('QQ')>-1) {
+        if (text.search('QQ') > -1) {
             return true
-        } else if (text.search('微信')>-1) {
+        } else if (text.search('微信') > -1) {
             return true
-        } else if (text.search('公众号')>-1) {
+        } else if (text.search('公众号') > -1) {
             return true
         } else {
             return true
         }
-        
+
     }
     reblogs.forEach(element => {
         text = element.innerText
         if (text.length > 50 || hasKeyWord(text)) {
-            element.innerText = '<-----filtered content---->'
-            console.log('lt-filtered')
+            element.parentElement.innerText = '<-----filtered content---->'
+            console.log('lt-text filtered')
         }
     })
 }
-filterText()
+
+function filterLiked() {
+    likeds = document.querySelectorAll('.liked')
+    likeds.forEach(element => {
+        li = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
+        li.innerText = '<-----filtered post---->'
+        console.log('lt-post filtered')
+    })
+}
 
 
 function getScrollPercent() {
     var scrollTop = document.documentElement.scrollTop
     var scrollHeight = document.documentElement.scrollHeight
-    return scrollTop/scrollHeight
+    return scrollTop / scrollHeight
 }
+
 function velocity() {
     var pre = 0
+
     function delta() {
-        console.log('lt-pre-'+pre)
+        console.log('lt-pre-' + pre)
         var now = getScrollPercent()
-        console.log('lt-now-'+now)
+        console.log('lt-now-' + now)
         delta = now - pre
         pre = now
         return delta
@@ -50,5 +59,9 @@ document.onscroll = function () {
     if (result < -0.1) {
         console.log('lt-more post loaded')
         filterText()
+        filterLiked()
     }
 }
+
+filterText()
+filterLiked()
