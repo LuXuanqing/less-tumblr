@@ -27,12 +27,27 @@ function filterText() {
 function filterLiked() {
     likeds = document.querySelectorAll('.liked')
     likeds.forEach(element => {
+        // var li = element.parentElement
+        // while (li.getAttribute('class') != 'post_container') {
+        //     li = element.parentElement
+        // }
         li = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
         li.innerText = '<-----filtered post---->'
         console.log('lt-post filtered')
     })
 }
 
+function filterUnpop() {
+    spans = document.querySelectorAll('span.note_link_current')
+    spans.forEach(span => {
+        notes = span.innerText.split(' ')[0]
+        if (notes < 1000) {
+            li = span.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
+            li.innerText = '<-----filtered post---->'
+            console.log('lt-post filtered')
+        }
+    })
+}
 
 function getScrollPercent() {
     var scrollTop = document.documentElement.scrollTop
@@ -44,9 +59,9 @@ function velocity() {
     var pre = 0
 
     function delta() {
-        console.log('lt-pre-' + pre)
+        // console.log('lt-pre-' + pre)
         var now = getScrollPercent()
-        console.log('lt-now-' + now)
+        // console.log('lt-now-' + now)
         delta = now - pre
         pre = now
         return delta
@@ -60,8 +75,10 @@ document.onscroll = function () {
         console.log('lt-more post loaded')
         filterText()
         filterLiked()
+        filterUnpop()
     }
 }
 
 filterText()
 filterLiked()
+filterUnpop()
