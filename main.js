@@ -1,5 +1,7 @@
 console.log('lt-less tumblr loaded!')
-
+function removeElement(el) {
+    el.parentElement.removeChild(li)
+}
 function filterText() {
     reblogs = document.querySelectorAll('.reblog-content')
 
@@ -15,10 +17,10 @@ function filterText() {
         }
 
     }
-    reblogs.forEach(element => {
-        text = element.innerText
+    reblogs.forEach(el => {
+        text = el.innerText
         if (text.length > 50 || hasKeyWord(text)) {
-            element.parentElement.innerText = '<-----filtered content---->'
+            removeElement(el)
             console.log('lt-text filtered')
         }
     })
@@ -26,13 +28,10 @@ function filterText() {
 
 function filterLiked() {
     likeds = document.querySelectorAll('.liked')
-    likeds.forEach(element => {
-        // var li = element.parentElement
-        // while (li.getAttribute('class') != 'post_container') {
-        //     li = element.parentElement
-        // }
-        li = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
-        li.innerText = '<-----filtered post---->'
+    likeds.forEach(el => {
+        li = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
+        removeElement(el)
+        // li.innerText = '<-----filtered post---->'
         console.log('lt-post filtered')
     })
 }
@@ -43,7 +42,8 @@ function filterUnpop() {
         notes = span.innerText.split(' ')[0]
         if (notes < 1000) {
             li = span.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
-            li.innerText = '<-----filtered post---->'
+            removeElement(el)
+            // li.innerText = '<-----filtered post---->'
             console.log('lt-post filtered')
         }
     })
